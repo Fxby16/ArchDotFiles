@@ -1,20 +1,24 @@
 #!/bin/bash
 
-# Get the name of the default sink
-default_sink_name=$(pactl info | grep 'Default Sink' | cut -d: -f2 | xargs)
+# Get the default sink name
+default_sink_name=$(pactl get-default-sink)
 
-# Get the index of the default sink
-default_sink_index=$(pactl list short sinks | grep "$default_sink_name" | awk '{print $1}')
+# If no default sink is found, exit with an error
+if [ -z "$default_sink_name" ]; then
+    echo "No audio sink found."
+    exit 1
+fi
 
 # Get the mute status of the default sink
-mute_status=$(pactl get-sink-mute "$default_sink_index" | grep -oP '(?<=Mute: )yes|no')
+mute_status=$(pactl get-sink-mute "$default_sink_name" | grep -oP '(?<=Mute: )yes|no')
 
-# Get the audio volume percentage for the default sink using its index
-audio_percentage=$(pactl get-sink-volume "$default_sink_index" | grep -oP '\d+%' | head -1)
+# Get the audio volume percentage for the default sink
+audio_percentage=$(pactl get-sink-volume "$default_sink_name" | grep -oP '\d+%' | head -1)
 
-# Check if muted
+# Display volume or mute icon
 if [ "$mute_status" = "no" ]; then
     echo " $audio_percentage"  # Display volume icon and percentage if not muted
 else
     echo " Muted"  # Display mute icon and text if muted
 fi
+

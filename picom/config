@@ -2,6 +2,7 @@ backend = "glx";
 glx-no-stencil = true;
 glx-copy-from-front = false;
 glx-swap-method = 2;
+vsync = true;
 
 # Opacity
 active-opacity = 1;
@@ -11,26 +12,31 @@ inactive-opacity-override = false;
 blur-background = true;
 
 blur-method = "dual_kawase";
-blur-strength = 6;
+blur-strength = 3;
 
 # Fading
 fading = true;
 fade-delta = 10;
 no-fading-openclose = false;
-corner-radius = 10;
+corner-radius = 0;
 fade-exclude = [ ];
-# Window type settings
+
 wintypes:
 {
 		dock = {
 				shadow = false;
+				blur-background = false;
 		};
 };
 
 opacity-rule = [
-    "80:class_g = 'code:Code'",
-    "80:class_g = 'Alacritty' && focused",
-    "80:class_g = 'Alacritty' && !focused",
+    #"80:class_g = 'Alacritty' && focused",
+    #"80:class_g = 'Alacritty' && !focused",
 ];
 
 xrender-sync-fence = true;
+
+shadow-exclude = [
+	"class_g = 'Polybar'",
+	"class_g = 'polybar'"
+]

@@ -5,7 +5,7 @@
 	<name>Apri un terminale qui</name>
 	<submenu></submenu>
 	<unique-id>1720340219919839-1</unique-id>
-	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<command>/usr/bin/alacritty</command>
 	<description>Esempio di azione personalizzata</description>
 	<range></range>
 	<patterns>*</patterns>
